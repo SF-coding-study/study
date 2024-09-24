@@ -22,3 +22,40 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# 컴파일된 오브젝트 파일
+*.o
+*.obj
+
+# 프리컴파일된 헤더
+*.gch
+*.pch
+
+# 컴파일된 동적 라이브러리
+*.so
+*.dylib
+*.dll
+
+# 실행 파일
+*.exe
+*.out
+*.app
+
+# 디버그 파일
+*.dSYM/
+*.su
+
+# IDE 관련 파일
+.vscode/
+.idea/
+*.user
+*.suo
+
+# 빌드 디렉토리
+build/
+bin/
+obj/
+
+# 운영체제 관련 파일
+.DS_Store
+Thumbs.db
