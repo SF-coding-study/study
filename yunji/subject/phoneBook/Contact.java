@@ -1,4 +1,4 @@
-package study.yunji.subject;
+package study.yunji.subject.phoneBook;
 
 public class Contact {
     private String firstName;
