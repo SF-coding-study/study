@@ -9,7 +9,7 @@ public record Contact(
 ) {
 	public static Contact of(String[] values) {
 		if (!validate(values)) {
-			throw new IllegalArgumentException();
+			return null;
 		}
 		return new Contact(
 			values[0],
