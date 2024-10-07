@@ -10,16 +10,68 @@ public class PhoneBook {
 
 	private final ArrayList<Contact> contacts;
 	int MAX_SIZE = 8;
+	static final String EXIT = "EXIT";
+	static final String ADD = "ADD";
+	static final String SEARCH = "SEARCH";
 
-	static BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+	static ArrayList<String> commands = new ArrayList<>();
+
+	static BufferedReader buffer;
 
 	public PhoneBook() {
+		buffer = new BufferedReader(new InputStreamReader(System.in));
 		contacts = new ArrayList<>();
+		setCommands();
 	}
 
-	public void commandAdd() throws IOException {
+	public void run() throws IOException {
+		String command;
+
+		while (true) {
+			System.out.print("Enter Command(ADD, SEARCH, EXIT) : ");
+
+			if ((command = buffer.readLine()) == null) {
+				System.out.println("EOF");
+				return;
+			}
+
+			if (!commands.contains(command)) {
+				System.out.println("Wrong Command!! (ADD, SEARCH, EXIT)");
+			} else if (command.equals(EXIT)) {
+				System.out.println("EXIT program!");
+				return;
+			} else {
+				if (!executeCommand(command)) {
+					break;
+				}
+			}
+		}
+	}
+
+	private void setCommands() {
+		for (int i = 0; i < 3; i++) {
+			commands.add(EXIT);
+			commands.add(ADD);
+			commands.add(SEARCH);
+		}
+	}
+
+	private boolean executeCommand(String command) throws IOException {
+		if (command.equals(ADD)) {
+			return commandAdd();
+		} else if (command.equals(SEARCH)) {
+			return commandSearch();
+		}
+		return true;
+	}
+
+	public boolean commandAdd() throws IOException {
 		Contact contact = getInput();
+		if (contact == null) {
+			return false;
+		}
 		addContact(contact);
+		return true;
 	}
 
 	private void addContact(Contact contact) {
@@ -33,12 +85,17 @@ public class PhoneBook {
 		contacts.add(targetIdx, contact);
 	}
 
-	public void commandSearch() throws IOException {
+	public boolean commandSearch() throws IOException {
 		final String ERROR_MESSAGE = "Wrong index value(0~" + (contacts.size() - 1) + ")";
 
 		System.out.println(getContactsDisplayString());
 		System.out.println("choose index(0~" + (contacts.size() - 1) + ")");
 		String idxString = buffer.readLine();
+
+		if (idxString == null) {
+			System.out.println("EOF");
+			return false;
+		}
 
 		Pattern pattern = Pattern.compile("^-?\\d+$");
 
@@ -46,12 +103,13 @@ public class PhoneBook {
 			int idx = Integer.parseInt(idxString);
 			if (idx >= contacts.size() || idx < 0) {
 				System.out.println(ERROR_MESSAGE);
-				return;
+				return false;
 			}
 			System.out.println(displayContactByIndex(idx));
 		} else {
 			System.out.println(ERROR_MESSAGE);
 		}
+		return true;
 	}
 
 	private String displayContactByIndex(int idx) throws IllegalArgumentException{
