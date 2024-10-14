@@ -7,6 +7,7 @@ public record Contact(
 	String phoneNumber,
 	String darkestSecret
 ) {
+	// 정적팩토리메서드
 	public static Contact of(String[] values) {
 		if (!validate(values)) {
 			return null;

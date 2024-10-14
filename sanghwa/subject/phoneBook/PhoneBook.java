@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class PhoneBook {
-
 	private final ArrayList<Contact> contacts;
-	int MAX_SIZE = 8;
-	static final String EXIT = "EXIT";
-	static final String ADD = "ADD";
-	static final String SEARCH = "SEARCH";
+	static final int MAX_SIZE = 8;
+	private static final String EXIT = "EXIT";
+	private static final String ADD = "ADD";
+	private static final String SEARCH = "SEARCH";
 
 	static ArrayList<String> commands = new ArrayList<>();
 
@@ -97,7 +96,7 @@ public class PhoneBook {
 			return false;
 		}
 
-		Pattern pattern = Pattern.compile("^-?\\d+$");
+		Pattern pattern = Pattern.compile("^-?\\d+$"); // 정규표현식
 
 		if (pattern.matcher(idxString).matches()) {
 			int idx = Integer.parseInt(idxString);
