@@ -11,7 +11,7 @@ public class Megaphone {
 		System.out.println(buffer.readLine().toUpperCase());
 	}
 
-	// args 사용 버전
+	// args 사용 버전2
 	// public static void main(String[] args) {
 	// 	for (String arg : args) {
 	// 		System.out.print(arg.toUpperCase());
